@@ -21,13 +21,13 @@ if (file_exists(dirname(__FILE__) . '/local-config.php')) {
 
 // Global DB config
 if (!defined('DB_NAME')) {
-	define('DB_NAME', 'hudsonandtask');
+	define('DB_NAME', 'port');
 }
 if (!defined('DB_USER')) {
-	define('DB_USER', 'admin');
+	define('DB_USER', 'root');
 }
 if (!defined('DB_PASSWORD')) {
-	define('DB_PASSWORD', 'admin');
+	define('DB_PASSWORD', 'mysql628');
 }
 if (!defined('DB_HOST')) {
 	define('DB_HOST', 'localhost');
@@ -52,14 +52,14 @@ if (!defined('DB_COLLATE')) {
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         '{M2|yP7$V2;@04)&;V(T/ss+HD(Z:5SjTb28W5uwKTe`Z]0s;{IRN@bkNndVgLa!');
-define('SECURE_AUTH_KEY',  'V0;V&.{!w.Uy[eP@B6h)^|HMG+l9GuCGFWY?2-q;U%R(CYp5^!0,(q,Y5I6=I5c#');
-define('LOGGED_IN_KEY',    'j@$T 8Hp|6lps(3N2d{jH_#c|?.|2.TXJSRvVvd7NG- K+B`0iQ1$XpkH*UKKGK@');
-define('NONCE_KEY',        ',J)5t9!6b;3)n20El}Ds)%V62KJ`O)|>OZ4yXkYq@ f|cA1z&tR]:|A7A&0{/4YY');
-define('AUTH_SALT',        'ZBTm|5=bOg{X+_*7((?B$G$K+~=Mg=|=h(Xm+@n{U+zvUY)<iZ^t<%gzsbT=,<0}');
-define('SECURE_AUTH_SALT', 'CQ%3bvs=!dw@8P|9 x&pvt/r[yB|c(CtZ?14V=@[; qg=z0-CYa<RDjaJ9h|c|9K');
-define('LOGGED_IN_SALT',   '?^sWUU#*oSmOP;Ti?8{d]|McDbmGf`T1|H=H=m$_}y:X:eMN-E`!]?J_lP&:kW=@');
-define('NONCE_SALT',       ' `}Ic}%,S/T_0=?ntigs;X+DYbp,ox04IV:`U@f?+R%Vx &4o0n-|x%W!8%-B~E&');
+define('AUTH_KEY',         'f/4?q(FbA#CY:wxhCo_!;J43Cx48T8E-_*9xRr%e,Jh7hR#LcV#2^?yf#fLnlr;>');
+define('SECURE_AUTH_KEY',  '01bXl(.L`AQV{XM#Z#[GFy`R{^Zf7QRahQqT^1hwokPa,+>p=!CMrk/g+e5Ml_I}');
+define('LOGGED_IN_KEY',    'r^M@m(l@fg]H6R {-6hSs*Io2K4&Z***~XgPzI--vZ-$orvT.xk}~Z8c,|7S6/oL');
+define('NONCE_KEY',        '|[n>9FTD[dN-5Z$$&2(+PZYM;DjDa7;6sz<,{vgOz6VE~OiEBdUt;2`b91ebzBnk');
+define('AUTH_SALT',        'g^Hc)~r |Q`d{f;x4iT4+EjHI)gO?-GL:$lf`vmd7985]R-B180_kQs9l]lUG9@9');
+define('SECURE_AUTH_SALT', 'fl_TUWJ2(dT3Rdd^V3%?ck1]=a!OuU8*bX9W9[}0[1kVEI7)#}Pkbw%/zpV_-1-7');
+define('LOGGED_IN_SALT',   '-M4__j7BY(VzJNG]BxHX96-aJdl/+K|bYL-;nD|3+qGS[io M-s`D&YvMVvkfUz3');
+define('NONCE_SALT',       'k:|}13DX)eEY-!bW0jHN..{j}6?7*?ce<kFxS7R>-NNSJXxXJC!4OpO;<N>d4^}R');
 
 /**#@-*/
 
