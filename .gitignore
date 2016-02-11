@@ -28,12 +28,12 @@ Thumbs.db
 # https://github.com/github/gitignore/blob/master/WordPress.gitignore
 sitemap.xml
 sitemap.xml.gz
-content/advanced-cache.php
-content/backup-db/
-content/backups/
-content/blogs.dir/
-content/cache/
-content/uploads/
-content/upgrade/
-content/wp-cache-config.php
+wp-content/advanced-cache.php
+wp-content/backup-db/
+wp-content/backups/
+wp-content/blogs.dir/
+wp-content/cache/
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/wp-cache-config.php
 
