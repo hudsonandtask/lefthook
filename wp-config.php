@@ -13,7 +13,7 @@
  *
  * @package WordPress
  */
- 
+
 // Include local configuration
 if (file_exists(dirname(__FILE__) . '/local-config.php')) {
 	include(dirname(__FILE__) . '/local-config.php');
@@ -30,7 +30,7 @@ if (!defined('DB_PASSWORD')) {
 	define('DB_PASSWORD', 'mysql628');
 }
 if (!defined('DB_HOST')) {
-	define('DB_HOST', 'localhost');
+	define('DB_HOST', '127.0.0.1');
 }
 
 /** Database Charset to use in creating database tables. */
