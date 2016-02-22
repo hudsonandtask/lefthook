@@ -1,3 +1,3 @@
 (function () {
-    angular.module('lefthook', ['ngRoute']);
+    angular.module('lefthook', ['ngRoute', 'angular-inview']);
 })();

@@ -18,12 +18,13 @@
 	<title>AngularJS Demo Theme</title>
 	<?php wp_head(); ?>
 </head>
-<body>
-    <div>
+<body >
+    <div class="app-container" scroll-state >
         <input type="text" ng-model="name">
         <p>Hello, {{name}}</p>
+        <div ng-view></div>
     </div>
-    <div ng-view></div>
+
 </body>
 
 </html>

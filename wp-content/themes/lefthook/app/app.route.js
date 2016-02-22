@@ -5,7 +5,8 @@
 
             $routeProvider.when('/', {
                 templateUrl: myLocalized.app + 'main/main.html',
-                controller:'Main'
+                controller: 'Main',
+                controllerAs:'vm'
             });
          });
 })();
