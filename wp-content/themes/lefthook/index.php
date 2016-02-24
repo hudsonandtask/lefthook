@@ -14,12 +14,13 @@
 <!DOCTYPE html>
 <html ng-app="lefthook">
 <head>
-    <base href="/jsonapi/">
+    <base href="/">
 	<title>AngularJS Demo Theme</title>
 	<?php wp_head(); ?>
 </head>
 <body >
-    <div class="app-container" scroll-state >
+    <div class="app-container" scroll-state in-view-container>
+        <menu-directive></menu-directive>
         <input type="text" ng-model="name">
         <p>Hello, {{name}}</p>
         <div ng-view></div>

@@ -6,11 +6,30 @@
 
         // Api
         return {
+            panelRequestPost:panelRequestPost,
             getAllPost: getAllPost,
             getBannerHeaderPost:getBannerHeaderPost
         }
 
         // Methods
+
+        function panelRequestPost(name) {
+            switch (name){
+                case 'hero':
+                    //alert(name);
+                    // Call specific function for this Panels Post
+                    break;
+                case 'marketing':
+                    //alert(name);
+                    // Call specific function for this Panels Post
+                    break;
+                case 'blog':
+                    //alert(name);
+                    // Call specific function for this Panels Post
+                    break;
+            }
+        }
+
         function getAllPost() {
             return getData('posts');
         }

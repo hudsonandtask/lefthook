@@ -1394,3 +1394,13 @@ code {
     height:200px;
     overflow-y:scroll;
 }
+
+.app-container .panel{
+    min-height: 300px;
+    display:block;
+    background-color: #A9CBD0;
+}
+
+.app-container .panel:nth-child(even){
+    background-color:#fff;
+}

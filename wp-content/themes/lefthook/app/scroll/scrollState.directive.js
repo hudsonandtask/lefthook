@@ -27,10 +27,7 @@
             var baseEl = element[0];
 
             element.bind('scroll', function () {
-
                 console.log('in a Scroll', baseEl.scrollTop, baseEl.offsetHeight);
-
-
             });
         }
     }
