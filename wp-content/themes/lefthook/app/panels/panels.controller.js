@@ -5,19 +5,12 @@
         .module('lefthook')
         .controller('panelController', panelController);
 
-    panelController.$inject = ['wpPostService', 'appStateService'];
-    function panelController(wpPostService, appService) {
+    panelController.$inject = ['wpPostService'];
+
+    function panelController(wpPostService) {
         var vm = this;
 
-        var postService = wpPostService;
+        //var postService = wpPostService;
 
-        //Controller API
-
-        vm.processPanel = processPanel;
-        ////////////////
-
-        function processPanel(name) {
-            postService.panelRequestPost(name);
-        }
     }
 })();

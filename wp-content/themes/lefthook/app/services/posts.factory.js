@@ -1,44 +1,66 @@
 /* global myLocalized */
 (function () {
+    //data
     angular.module('lefthook')
         .factory('wpPostService', wpPostService);
-    function wpPostService($http, $sce) {
+
+    wpPostService.$inject = [
+        '$http',
+        '$sce',
+        'appSettings',
+        '$q'
+    ];
+
+    function wpPostService($http, $sce, appSettings, $q) {
 
         // Api
         return {
             panelRequestPost:panelRequestPost,
-            getAllPost: getAllPost,
-            getBannerHeaderPost:getBannerHeaderPost
+            getPagePost:getPagePost
         }
 
         // Methods
 
+        function getPagePost(page) {
+            var settings = appSettings.jsonRequestPageSettings[page];
+            var promisesArray =[];
+
+            angular.forEach(settings, function (value, key) {
+                // Set up Promises to store in an Array
+                var response = panelRequestPost(value);
+                promisesArray.push(response);
+            });
+
+            // Resolve/Unpack Promises at once
+            return $q.all(promisesArray).then(function (jsonResults) {
+                var obj = {};
+                angular.forEach(settings, function (settingsKey, settingsIndex) {
+                    obj[settingsKey] = jsonResults[settingsIndex];
+                });
+                return obj;
+            });
+        }
+
         function panelRequestPost(name) {
             switch (name){
                 case 'hero':
-                    //alert(name);
-                    // Call specific function for this Panels Post
+                    return getData('posts?filter[category_name]=hero');
                     break;
                 case 'marketing':
-                    //alert(name);
-                    // Call specific function for this Panels Post
+                    return getData('posts?filter[category_name]=marketing');
                     break;
                 case 'blog':
-                    //alert(name);
-                    // Call specific function for this Panels Post
+                    return getData('posts?filter[category_name]=blog');
+                    break;
+                case 'projects':
+                    return getData('posts?filter[category_name]=projects');
                     break;
             }
         }
 
-        function getAllPost() {
-            return getData('posts');
-        }
-
-        function getBannerHeaderPost() {
-            return getData('posts/?category_name=bannerheader');
-        }
         // Helper Methods
 
+        // $http request handler
         function getData(url) {
             return $http.get(myLocalized.api_url + 'wp/v2/' + url)
                 .then(function (response) {

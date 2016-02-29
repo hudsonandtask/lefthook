@@ -4,8 +4,8 @@
 
             $routeProvider
                 .when('/', {
-                    templateUrl: myLocalized.app + 'main/main.html',
-                    controller: 'Main',
+                    templateUrl: myLocalized.app + 'home/home.html',
+                    controller: 'homeCtrl',
                     controllerAs: 'vm'
                 })
                 .when('/about', {

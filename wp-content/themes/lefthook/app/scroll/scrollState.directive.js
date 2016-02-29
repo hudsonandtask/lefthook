@@ -24,11 +24,11 @@
         return directive;
 
         function link(scope, element, attrs) {
-            var baseEl = element[0];
+            // var baseEl = element[0];
 
-            element.bind('scroll', function () {
-                console.log('in a Scroll', baseEl.scrollTop, baseEl.offsetHeight);
-            });
+            // element.bind('scroll', function () {
+            //     console.log('in a Scroll', baseEl.scrollTop, baseEl.offsetHeight);
+            // });
         }
     }
     /* @ngInject */

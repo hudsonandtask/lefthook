@@ -1,17 +1,15 @@
-(function() {
-'use strict';
-
+(function () {
     angular
         .module('lefthook')
-        .controller('blogCtrl', blogCtrl);
+        .controller('homeCtrl', homeCtrl);
 
-    blogCtrl.$inject = [
+    homeCtrl.$inject = [
         'wpPostService',
         'appStateService'
     ];
 
-    function blogCtrl(wpPostService, appStateService) {
-       var vm = this;
+    function homeCtrl(wpPostService, appStateService) {
+        var vm = this;
 
         vm.post = {};
 

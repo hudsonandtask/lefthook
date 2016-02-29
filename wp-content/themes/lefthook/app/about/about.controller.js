@@ -5,16 +5,25 @@
         .module('lefthook')
         .controller('aboutCtrl', aboutCtrl);
 
-    function aboutCtrl() {
+    aboutCtrl.$inject = [
+        'wpPostService',
+        'appStateService'
+    ];
+
+    function aboutCtrl(wpPostService, appStateService) {
         var vm = this;
 
+        vm.post = {};
+        vm.setViewModel = setViewModel;
 
-        activate();
+        wpPostService.getPagePost('about').then(function (item) {
+            setViewModel(item);
+        });
 
-        ////////////////
-
-        function activate() {
-            alert('I am the about page');
-         }
+        function setViewModel(responseItem) {
+            angular.forEach(responseItem, function (responseValue, responseIndex) {
+                vm.post[responseIndex] = responseValue;
+            });
+        }
     }
 })();

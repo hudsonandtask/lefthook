@@ -8,8 +8,8 @@
 
             $routeProvider
                 .when('/', {
-                    templateUrl: myLocalized.app + 'main/main.html',
-                    controller: 'Main',
+                    templateUrl: myLocalized.app + 'home/home.html',
+                    controller: 'homeCtrl',
                     controllerAs: 'vm'
                 })
                 .when('/about', {
@@ -36,17 +36,26 @@
         .module('lefthook')
         .controller('aboutCtrl', aboutCtrl);
 
-    function aboutCtrl() {
+    aboutCtrl.$inject = [
+        'wpPostService',
+        'appStateService'
+    ];
+
+    function aboutCtrl(wpPostService, appStateService) {
         var vm = this;
 
+        vm.post = {};
+        vm.setViewModel = setViewModel;
 
-        activate();
+        wpPostService.getPagePost('about').then(function (item) {
+            setViewModel(item);
+        });
 
-        ////////////////
-
-        function activate() {
-            alert('I am the about page');
-         }
+        function setViewModel(responseItem) {
+            angular.forEach(responseItem, function (responseValue, responseIndex) {
+                vm.post[responseIndex] = responseValue;
+            });
+        }
     }
 })();
 (function() {
@@ -56,43 +65,29 @@
         .module('lefthook')
         .controller('blogCtrl', blogCtrl);
 
-
-    function blogCtrl() {
-        var vm = this;
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-            alert('I am Blog');
-        }
-    }
-})();
-(function () {
-    angular.module('lefthook')
-        .controller('Main', mainController);
-    function mainController(wpPostService, appStateService) {
-        var vm = this;
-
-        vm.post = {};
-        vm.handleScroll = handleScroll;
-
-        wpPostService.getAllPost().then(function (result) {
-            vm.post = result;
-            var appState = appStateService;
-
-        });
-
-        function handleScroll(name) {
-            console.log(name);
-        }
-
-    }
-    mainController.$inject = [
+    blogCtrl.$inject = [
         'wpPostService',
         'appStateService'
-    ]
+    ];
+
+    function blogCtrl(wpPostService, appStateService) {
+       var vm = this;
+
+        vm.post = {};
+
+        wpPostService.panelRequestPost('hero').then(function (json) {
+            vm.post.hero = json;
+        });
+
+        wpPostService.panelRequestPost('marketing').then(function (json) {
+            vm.post.marketing = json;
+        });
+
+        wpPostService.panelRequestPost('projects').then(function (json) {
+            vm.post.projects = json;
+        });
+
+    }
 })();
 (function() {
     'use strict';
@@ -127,6 +122,35 @@
 
     }
 })();
+(function () {
+    angular
+        .module('lefthook')
+        .controller('homeCtrl', homeCtrl);
+
+    homeCtrl.$inject = [
+        'wpPostService',
+        'appStateService'
+    ];
+
+    function homeCtrl(wpPostService, appStateService) {
+        var vm = this;
+
+        vm.post = {};
+
+        wpPostService.panelRequestPost('hero').then(function (json) {
+            vm.post.hero = json;
+        });
+
+        wpPostService.panelRequestPost('marketing').then(function (json) {
+            vm.post.marketing = json;
+        });
+
+        wpPostService.panelRequestPost('projects').then(function (json) {
+            vm.post.projects = json;
+        });
+
+    }
+})();
 (function() {
 'use strict';
 
@@ -134,20 +158,13 @@
         .module('lefthook')
         .controller('panelController', panelController);
 
-    panelController.$inject = ['wpPostService', 'appStateService'];
-    function panelController(wpPostService, appService) {
+    panelController.$inject = ['wpPostService'];
+
+    function panelController(wpPostService) {
         var vm = this;
 
-        var postService = wpPostService;
+        //var postService = wpPostService;
 
-        //Controller API
-
-        vm.processPanel = processPanel;
-        ////////////////
-
-        function processPanel(name) {
-            postService.panelRequestPost(name);
-        }
     }
 })();
 (function() {
@@ -166,21 +183,78 @@
         var directive = {
             controller: 'panelController',
             link: link,
+             templateUrl: myLocalized.app + 'panels/panel.html',
             restrict: 'E',
             scope: {
                 panelName: '@',
-                postCount:'@'
+                postCount: '@',
+                data:'='
             }
         };
         return directive;
 
         function link(scope, element, attrs, controller) {
-            var name = scope.panelName;
-            var panelController = controller;
+            // var name = scope.panelName;
+            // var panelController = controller;
 
-            panelController.processPanel(name);
+            // panelController.processPanel(name);
         }
     }
+})();
+(function() {
+'use strict';
+
+    angular
+        .module('lefthook')
+        .controller('postsController', postsController);
+
+    postsController.$inject = [];
+    function postsController() {
+        var vm = this;
+
+
+        activate();
+
+        ////////////////
+
+        function activate() {
+            console.log('I am active');
+         }
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('lefthook')
+        .directive('posts', posts);
+
+    posts.$inject = [
+
+    ];
+
+    function posts() {
+        // Usage:
+        //
+        // Creates:
+        //
+        var directive = {
+            bindToController: true,
+            controller: 'postsController',
+            controllerAs: 'vm',
+            link: link,
+            restrict: 'E',
+            scope: {
+                postName: '@',
+                 data:'='
+            }
+        };
+        return directive;
+
+        function link(scope, element, attrs) {
+        }
+    }
+
 })();
 (function() {
     'use strict';
@@ -208,16 +282,33 @@
         return directive;
 
         function link(scope, element, attrs) {
-            var baseEl = element[0];
+            // var baseEl = element[0];
 
-            element.bind('scroll', function () {
-                console.log('in a Scroll', baseEl.scrollTop, baseEl.offsetHeight);
-            });
+            // element.bind('scroll', function () {
+            //     console.log('in a Scroll', baseEl.scrollTop, baseEl.offsetHeight);
+            // });
         }
     }
     /* @ngInject */
     function scrollStateController () {
 
+    }
+})();
+(function() {
+'use strict';
+
+    angular
+        .module('lefthook')
+        .factory('appSettings', appSettings);
+
+    function appSettings() {
+        return {
+            jsonRequestPageSettings: {
+                home: ['hero', 'marketing', 'projects'],
+                about: ['hero', 'marketing', 'projects'],
+                blog: ['blog', 'marketing', 'projects']
+            }
+        };
     }
 })();
 (function() {
@@ -348,45 +439,67 @@
 })();
 /* global myLocalized */
 (function () {
+    //data
     angular.module('lefthook')
         .factory('wpPostService', wpPostService);
-    function wpPostService($http, $sce) {
+
+    wpPostService.$inject = [
+        '$http',
+        '$sce',
+        'appSettings',
+        '$q'
+    ];
+
+    function wpPostService($http, $sce, appSettings, $q) {
 
         // Api
         return {
             panelRequestPost:panelRequestPost,
-            getAllPost: getAllPost,
-            getBannerHeaderPost:getBannerHeaderPost
+            getPagePost:getPagePost
         }
 
         // Methods
 
+        function getPagePost(page) {
+            var settings = appSettings.jsonRequestPageSettings[page];
+            var promisesArray =[];
+
+            angular.forEach(settings, function (value, key) {
+                // Set up Promises to store in an Array
+                var response = panelRequestPost(value);
+                promisesArray.push(response);
+            });
+
+            // Resolve/Unpack Promises at once
+            return $q.all(promisesArray).then(function (jsonResults) {
+                var obj = {};
+                angular.forEach(settings, function (settingsKey, settingsIndex) {
+                    obj[settingsKey] = jsonResults[settingsIndex];
+                });
+                return obj;
+            });
+        }
+
         function panelRequestPost(name) {
             switch (name){
                 case 'hero':
-                    //alert(name);
-                    // Call specific function for this Panels Post
+                    return getData('posts?filter[category_name]=hero');
                     break;
                 case 'marketing':
-                    //alert(name);
-                    // Call specific function for this Panels Post
+                    return getData('posts?filter[category_name]=marketing');
                     break;
                 case 'blog':
-                    //alert(name);
-                    // Call specific function for this Panels Post
+                    return getData('posts?filter[category_name]=blog');
+                    break;
+                case 'projects':
+                    return getData('posts?filter[category_name]=projects');
                     break;
             }
         }
 
-        function getAllPost() {
-            return getData('posts');
-        }
-
-        function getBannerHeaderPost() {
-            return getData('posts/?category_name=bannerheader');
-        }
         // Helper Methods
 
+        // $http request handler
         function getData(url) {
             return $http.get(myLocalized.api_url + 'wp/v2/' + url)
                 .then(function (response) {

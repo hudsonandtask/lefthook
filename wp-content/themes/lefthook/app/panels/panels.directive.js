@@ -14,19 +14,21 @@
         var directive = {
             controller: 'panelController',
             link: link,
+             templateUrl: myLocalized.app + 'panels/panel.html',
             restrict: 'E',
             scope: {
                 panelName: '@',
-                postCount:'@'
+                postCount: '@',
+                data:'='
             }
         };
         return directive;
 
         function link(scope, element, attrs, controller) {
-            var name = scope.panelName;
-            var panelController = controller;
+            // var name = scope.panelName;
+            // var panelController = controller;
 
-            panelController.processPanel(name);
+            // panelController.processPanel(name);
         }
     }
 })();
