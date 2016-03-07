@@ -5,29 +5,21 @@
         .module('lefthook')
         .directive('posts', posts);
 
-    posts.$inject = [
-
-    ];
+    posts.$inject = [];
 
     function posts() {
-        // Usage:
-        //
-        // Creates:
-        //
         var directive = {
-            bindToController: true,
-            controller: 'postsController',
-            controllerAs: 'vm',
             link: link,
             restrict: 'E',
             scope: {
-                postName: '@',
-                 data:'='
+                postDisplyName: '@',
             }
         };
+
         return directive;
 
-        function link(scope, element, attrs) {
+        function link() {
+
         }
     }
 

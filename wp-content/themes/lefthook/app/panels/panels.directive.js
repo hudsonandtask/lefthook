@@ -14,7 +14,7 @@
         var directive = {
             controller: 'panelController',
             link: link,
-             templateUrl: myLocalized.app + 'panels/panel.html',
+            templateUrl: myLocalized.app + 'panels/panel.html',
             restrict: 'E',
             scope: {
                 panelName: '@',
@@ -25,10 +25,7 @@
         return directive;
 
         function link(scope, element, attrs, controller) {
-            // var name = scope.panelName;
-            // var panelController = controller;
 
-            // panelController.processPanel(name);
         }
     }
 })();

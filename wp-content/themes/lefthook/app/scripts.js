@@ -89,35 +89,6 @@
 
     }
 })();
-(function () {
-    angular
-        .module('lefthook')
-        .controller('homeCtrl', homeCtrl);
-
-    homeCtrl.$inject = [
-        'wpPostService',
-        'appStateService'
-    ];
-
-    function homeCtrl(wpPostService, appStateService) {
-        var vm = this;
-
-        vm.post = {};
-
-        wpPostService.panelRequestPost('hero').then(function (json) {
-            vm.post.hero = json;
-        });
-
-        wpPostService.panelRequestPost('marketing').then(function (json) {
-            vm.post.marketing = json;
-        });
-
-        wpPostService.panelRequestPost('projects').then(function (json) {
-            vm.post.projects = json;
-        });
-
-    }
-})();
 (function() {
     'use strict';
 
@@ -148,6 +119,35 @@
     }
     /* @ngInject */
     function ControllerController () {
+
+    }
+})();
+(function () {
+    angular
+        .module('lefthook')
+        .controller('homeCtrl', homeCtrl);
+
+    homeCtrl.$inject = [
+        'wpPostService',
+        'appStateService'
+    ];
+
+    function homeCtrl(wpPostService, appStateService) {
+        var vm = this;
+
+        vm.post = {};
+
+        wpPostService.panelRequestPost('hero').then(function (json) {
+            vm.post.hero = json;
+        });
+
+        wpPostService.panelRequestPost('marketing').then(function (json) {
+            vm.post.marketing = json;
+        });
+
+        wpPostService.panelRequestPost('projects').then(function (json) {
+            vm.post.projects = json;
+        });
 
     }
 })();
@@ -183,7 +183,7 @@
         var directive = {
             controller: 'panelController',
             link: link,
-             templateUrl: myLocalized.app + 'panels/panel.html',
+            templateUrl: myLocalized.app + 'panels/panel.html',
             restrict: 'E',
             scope: {
                 panelName: '@',
@@ -194,32 +194,8 @@
         return directive;
 
         function link(scope, element, attrs, controller) {
-            // var name = scope.panelName;
-            // var panelController = controller;
 
-            // panelController.processPanel(name);
         }
-    }
-})();
-(function() {
-'use strict';
-
-    angular
-        .module('lefthook')
-        .controller('postsController', postsController);
-
-    postsController.$inject = [];
-    function postsController() {
-        var vm = this;
-
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-            console.log('I am active');
-         }
     }
 })();
 (function() {
@@ -229,29 +205,21 @@
         .module('lefthook')
         .directive('posts', posts);
 
-    posts.$inject = [
-
-    ];
+    posts.$inject = [];
 
     function posts() {
-        // Usage:
-        //
-        // Creates:
-        //
         var directive = {
-            bindToController: true,
-            controller: 'postsController',
-            controllerAs: 'vm',
             link: link,
             restrict: 'E',
             scope: {
-                postName: '@',
-                 data:'='
+                postDisplyName: '@',
             }
         };
+
         return directive;
 
-        function link(scope, element, attrs) {
+        function link() {
+
         }
     }
 
@@ -522,4 +490,75 @@
             return result;
         }
     }
+})();
+(function() {
+'use strict';
+
+    angular
+        .module('lefthook')
+        .controller('postController', postController);
+
+    postController.$inject = [];
+    function postController() {
+        var vm = this;
+
+    //     console.log('post i am loaded');
+
+    //     vm.getTemplateUrl = getTemplateUrl;
+
+    //    function getTemplateUrl(templateType){
+    //         var template =  '';
+
+    //         switch(templateType){
+    //             case 'hero':
+    //                 template = myLocalized.app + 'posts/post/views/hero.posts.html';
+    //                 break;
+    //             case 'marketing':
+    //                 template = myLocalized.app + 'post/posts/views/marketing.posts.html';
+    //                 break;
+    //             case 'projects':
+    //                  template = myLocalized.app + 'post/posts/views/projects.posts.html';
+    //         }
+
+    //         return template;
+    //     }
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('lefthook')
+        .directive('post', post);
+
+    post.$inject = [];
+
+    function post() {
+        // Usage:
+        //
+        // Creates:
+        //
+        var directive = {
+
+            link: link,
+            restrict: 'E',
+            controller: 'postController',
+            scope: {},
+            replace: true,
+            transclude:false,
+            template: '<ng-include src="getTemplateUrl()"/>'
+        };
+
+        return directive;
+
+        function link(scope, element, attrs, controller) {
+
+            scope.getTemplateUrl = function () {
+                return myLocalized.app + 'posts/post/views/hero.posts.html';
+            }
+
+
+        }
+    }
+
 })();
