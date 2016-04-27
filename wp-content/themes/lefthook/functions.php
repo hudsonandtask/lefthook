@@ -34,11 +34,16 @@ function theme_scripts() {
         get_stylesheet_directory_uri() . '/app/scripts.js',
         array('angularjs', 'angularjs-route', 'angularjs-inview')
     );
-
     wp_localize_script(
         'my-scripts',
         'myLocalized',
         array('app' => trailingslashit( get_template_directory_uri() ) . 'app/', 'api_url' => esc_url_raw( rest_url() ), 'api_nonce' => wp_create_nonce( 'wp_rest' ))
     );
 }
+
+add_theme_support( 'admin-bar', array( 'callback' => '__return_false' ) );
+
+
+add_theme_support( 'post-thumbnails' );
+
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );

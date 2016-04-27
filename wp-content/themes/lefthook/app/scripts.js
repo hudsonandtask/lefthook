@@ -15,12 +15,12 @@
                 .when('/about', {
                     templateUrl: myLocalized.app + 'about/about.html',
                     controller: 'aboutCtrl',
-                    controllerAs: 'about'
+                    controllerAs: 'vm'
                 })
                 .when('/blog', {
                     templateUrl: myLocalized.app + 'blog/blog.html',
                     controller: 'blogCtrl',
-                    controllerAs: 'blog'
+                    controllerAs: 'vm'
                 })
                 .otherwise({
                     redirectTo: '/'
@@ -137,33 +137,17 @@
 
         vm.post = {};
 
-        wpPostService.panelRequestPost('hero').then(function (json) {
-            vm.post.hero = json;
-        });
+        // wpPostService.panelRequestPost('hero').then(function (json) {
+        //     vm.post.hero = json;
+        // });
 
-        wpPostService.panelRequestPost('marketing').then(function (json) {
-            vm.post.marketing = json;
-        });
+        // wpPostService.panelRequestPost('marketing').then(function (json) {
+        //     vm.post.marketing = json;
+        // });
 
-        wpPostService.panelRequestPost('projects').then(function (json) {
-            vm.post.projects = json;
-        });
-
-    }
-})();
-(function() {
-'use strict';
-
-    angular
-        .module('lefthook')
-        .controller('panelController', panelController);
-
-    panelController.$inject = ['wpPostService'];
-
-    function panelController(wpPostService) {
-        var vm = this;
-
-        //var postService = wpPostService;
+        // wpPostService.panelRequestPost('projects').then(function (json) {
+        //     vm.post.projects = json;
+        // });
 
     }
 })();
@@ -172,57 +156,46 @@
 
     angular
         .module('lefthook')
-        .directive('panel', panel);
+        .directive('lhInclude', lhInclude);
 
-    panel.$inject = ['wpPostService', 'appStateService'];
-    function panel(wpPostService, appService) {
+    lhInclude.$inject = ['$compile'];
+
+    function lhInclude($compile) {
         // Usage:
         //
         // Creates:
         //
         var directive = {
-            controller: 'panelController',
             link: link,
-            templateUrl: myLocalized.app + 'panels/panel.html',
-            restrict: 'E',
-            scope: {
-                panelName: '@',
-                postCount: '@',
-                data:'='
-            }
+            restrict: 'A',
+            templateUrl: function(tElement, tAttrs) {
+                return getTemplateUrl(tAttrs.panelName);
+            },
+            scope:false
+
         };
         return directive;
 
-        function link(scope, element, attrs, controller) {
+        function link(scope, element, attrs) {
 
         }
-    }
-})();
-(function() {
-    'use strict';
 
-    angular
-        .module('lefthook')
-        .directive('posts', posts);
+        function getTemplateUrl(templateType) {
+            var template = '';
 
-    posts.$inject = [];
-
-    function posts() {
-        var directive = {
-            link: link,
-            restrict: 'E',
-            scope: {
-                postDisplyName: '@',
+            switch (templateType) {
+                case 'hero':
+                    template = myLocalized.app + 'panels/views/hero.panel.html';
+                    break;
+                case 'marketing':
+                    template = myLocalized.app + 'panels/views/marketing.panel.html';
+                    break;
+                case 'projects':
+                    template = myLocalized.app + 'panels/views/projects.panel.html';
             }
+            return template;
         };
-
-        return directive;
-
-        function link() {
-
-        }
     }
-
 })();
 (function() {
     'use strict';
@@ -260,6 +233,52 @@
     /* @ngInject */
     function scrollStateController () {
 
+    }
+})();
+(function() {
+'use strict';
+
+    angular
+        .module('lefthook')
+        .controller('panelController', panelController);
+
+    panelController.$inject = ['wpPostService'];
+
+    function panelController(wpPostService) {
+        var vm = this;
+
+        //var postService = wpPostService;
+
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('lefthook')
+        .directive('panel', panel);
+
+    panel.$inject = ['wpPostService', 'appStateService'];
+    function panel(wpPostService, appService) {
+        // Usage:
+        //
+        // Creates:
+        //
+        var directive = {
+            controller: 'panelController',
+            link: link,
+            restrict: 'E',
+            scope: {
+                panelName: '@',
+                postCount: '@',
+                data: '='
+            }
+        };
+        return directive;
+
+        function link(scope, element, attrs, controller, transclude) {
+
+        }
     }
 })();
 (function() {
@@ -490,75 +509,4 @@
             return result;
         }
     }
-})();
-(function() {
-'use strict';
-
-    angular
-        .module('lefthook')
-        .controller('postController', postController);
-
-    postController.$inject = [];
-    function postController() {
-        var vm = this;
-
-    //     console.log('post i am loaded');
-
-    //     vm.getTemplateUrl = getTemplateUrl;
-
-    //    function getTemplateUrl(templateType){
-    //         var template =  '';
-
-    //         switch(templateType){
-    //             case 'hero':
-    //                 template = myLocalized.app + 'posts/post/views/hero.posts.html';
-    //                 break;
-    //             case 'marketing':
-    //                 template = myLocalized.app + 'post/posts/views/marketing.posts.html';
-    //                 break;
-    //             case 'projects':
-    //                  template = myLocalized.app + 'post/posts/views/projects.posts.html';
-    //         }
-
-    //         return template;
-    //     }
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('lefthook')
-        .directive('post', post);
-
-    post.$inject = [];
-
-    function post() {
-        // Usage:
-        //
-        // Creates:
-        //
-        var directive = {
-
-            link: link,
-            restrict: 'E',
-            controller: 'postController',
-            scope: {},
-            replace: true,
-            transclude:false,
-            template: '<ng-include src="getTemplateUrl()"/>'
-        };
-
-        return directive;
-
-        function link(scope, element, attrs, controller) {
-
-            scope.getTemplateUrl = function () {
-                return myLocalized.app + 'posts/post/views/hero.posts.html';
-            }
-
-
-        }
-    }
-
 })();

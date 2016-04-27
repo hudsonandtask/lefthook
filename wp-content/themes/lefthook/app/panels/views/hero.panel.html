@@ -1,0 +1,8 @@
+<div class="l-lefthook-hero">
+        <div class="hero-post" ng-repeat="model in vm.post.hero">
+            <div class="hero-title">{{model.title.rendered}}</div>
+            <div class="hero-image" style='background-image:url("{{model.better_featured_image.source_url}}")'>
+            </div>
+            <div class="hero-body" ng-bind-html="model.content"></div>
+        </div>
+</div>

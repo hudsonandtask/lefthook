@@ -14,17 +14,16 @@
         var directive = {
             controller: 'panelController',
             link: link,
-            templateUrl: myLocalized.app + 'panels/panel.html',
             restrict: 'E',
             scope: {
                 panelName: '@',
                 postCount: '@',
-                data:'='
+                data: '='
             }
         };
         return directive;
 
-        function link(scope, element, attrs, controller) {
+        function link(scope, element, attrs, controller, transclude) {
 
         }
     }

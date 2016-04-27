@@ -1,0 +1,21 @@
+
+/*
+Theme Name: LeftHook
+Theme URI: https://wordpress.org/themes/lefthook/
+Description: Dev theme for Lefthook Site
+Author: hudsonandtask
+Author URI: https://birdlikebats.com/
+Version: 1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: black, blue, white, one-column, lefthook
+Text Domain: lefthook
+*/
+
+@import "vendor/normalize";
+@import "vendor/wordpress";
+
+@import "partials/base";
+
+@import "partials/app";
+@import "partials/hero";

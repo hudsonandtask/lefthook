@@ -13,17 +13,17 @@
 
         vm.post = {};
 
-        wpPostService.panelRequestPost('hero').then(function (json) {
-            vm.post.hero = json;
-        });
+        // wpPostService.panelRequestPost('hero').then(function (json) {
+        //     vm.post.hero = json;
+        // });
 
-        wpPostService.panelRequestPost('marketing').then(function (json) {
-            vm.post.marketing = json;
-        });
+        // wpPostService.panelRequestPost('marketing').then(function (json) {
+        //     vm.post.marketing = json;
+        // });
 
-        wpPostService.panelRequestPost('projects').then(function (json) {
-            vm.post.projects = json;
-        });
+        // wpPostService.panelRequestPost('projects').then(function (json) {
+        //     vm.post.projects = json;
+        // });
 
     }
 })();

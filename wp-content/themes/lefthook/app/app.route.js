@@ -11,12 +11,12 @@
                 .when('/about', {
                     templateUrl: myLocalized.app + 'about/about.html',
                     controller: 'aboutCtrl',
-                    controllerAs: 'about'
+                    controllerAs: 'vm'
                 })
                 .when('/blog', {
                     templateUrl: myLocalized.app + 'blog/blog.html',
                     controller: 'blogCtrl',
-                    controllerAs: 'blog'
+                    controllerAs: 'vm'
                 })
                 .otherwise({
                     redirectTo: '/'

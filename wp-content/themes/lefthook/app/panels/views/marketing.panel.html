@@ -1,0 +1,6 @@
+<div class="l-lefthook-marketing">
+        <div class="marketing-post" ng-repeat="model in vm.post.marketing">
+            <div class="marketing-title">{{model.title.rendered}}</div>
+            <div class="marketing-body" ng-bind-html="model.content"></div>
+        </div>
+</div>
